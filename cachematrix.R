@@ -1,6 +1,7 @@
 ## Cache the Inverse of an invertible Matrix in order to avoid repeated 
 ## computation using a pair of functions
-## Example:
+## As a precondition, the matrix should be invertible, else an error is raised
+## Usage example with an invertible matrix:
 ## mm = matrix(c(4,3,3,2),2)
 ## mcm <- makeCacheMatrix(mm)
 ## cacheSolve(mcm)
@@ -10,9 +11,9 @@
 
 makeCacheMatrix <- function(x = matrix()) {
     i <- NULL  # initialize object for inversed matrix
-    set <- function(y) {  # assign a value to an object in global environment
-        x <<- y  # change x (this function's parameter!) in global environment
-        i <<- NULL  # initialize inversed matrix in global environment
+    set <- function(y) {  # assign a value to an object in parent environment
+        x <<- y  # change x in parent environment (makeCacheMatrix parameter!)
+        i <<- NULL  # initialize inversed matrix in parent environment
     }
     get <- function() x  # return the matrix
     setinverse <- function(solve) i <<- solve  # calculate inverse matrix
