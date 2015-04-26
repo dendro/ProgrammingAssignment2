@@ -16,7 +16,7 @@ makeCacheMatrix <- function(x = matrix()) {
         i <<- NULL  # initialize inversed matrix in parent environment
     }
     get <- function() x  # return the matrix
-    setinverse <- function(solve) i <<- solve  # calculate inverse matrix
+    setinverse <- function(solved) i <<- solved  # assign to i object in parent
     getinverse <- function() i  # return inversed matrix
     list(set = set, get = get,
          setinverse = setinverse,
@@ -35,7 +35,7 @@ cacheSolve <- function(x, ...) {
     }
     ## as the inverse has not yet been calculated (cached), perform caculation
     data <- x$get()
-    i <- solve(data, ...)
+    i <- solve(data, ...)  # calculate the inverse matrix
     x$setinverse(i)  # cache the inversed matrix 
     i  # Return a matrix that is the inverse of 'x'
 }
